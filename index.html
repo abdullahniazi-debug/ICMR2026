@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICMR 2026 | 23rd International Conference on Manufacturing Research</title>
+    <title>ICMR 2026 | Conference Album & Proceedings</title>
     
-    <!-- Dependencies: PDF Engine & 3D Page Flip Library -->
+    <!-- Dependencies: PDF Engine & 3D Album Flip Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,65 +15,97 @@
         body, html {
             width: 100%;
             height: 100%;
-            background-color: #0b0f19;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: radial-gradient(circle at center, #1e1b18 0%, #0d0b0a 100%);
+            font-family: 'Georgia', serif;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
-        /* Conference Navigation Bar */
+        /* Deluxe Header Header Bar */
         header {
-            height: 56px;
-            background-color: #111827;
-            border-bottom: 1px solid #1f2937;
+            height: 60px;
+            background-color: #14110f;
+            border-bottom: 1px solid #2d2621;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 24px;
             z-index: 20;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
         .brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
-        .badge {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: #fff;
+        .album-badge {
+            background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
+            color: #14110f;
             font-size: 0.75rem;
-            font-weight: 700;
-            padding: 4px 8px;
-            border-radius: 4px;
-            letter-spacing: 0.5px;
+            font-weight: 800;
+            padding: 5px 10px;
+            border-radius: 3px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: system-ui, sans-serif;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
         }
         .title-text h1 {
-            color: #f3f4f6;
-            font-size: 0.95rem;
-            font-weight: 600;
+            color: #f3ece7;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
         .title-text p {
-            color: #9ca3af;
+            color: #a39589;
             font-size: 0.75rem;
+            font-family: system-ui, sans-serif;
         }
 
-        /* Main Viewport & Magazine Container */
+        /* Album Viewport */
         #viewport {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            padding: 20px;
             overflow: hidden;
         }
+
+        /* Book Shadow & Outer Frame */
+        .book-stage {
+            position: relative;
+            padding: 12px;
+            background: #191411;
+            border-radius: 8px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 
+                        inset 0 0 0 1px rgba(212, 175, 55, 0.2);
+        }
+
         .magazine-wrapper {
             position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
         }
+
+        /* Center Book Spine Line */
+        .book-stage::after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            bottom: 12px;
+            left: 50%;
+            width: 4px;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+            z-index: 10;
+            pointer-events: none;
+        }
+
         .page {
-            background-color: #ffffff;
+            background-color: #fdfbf7;
             overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.05);
         }
         .page canvas {
             width: 100%;
@@ -83,57 +115,58 @@
         /* Loading Indicator */
         #loader {
             position: absolute;
-            color: #f8fafc;
+            color: #d4af37;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            font-family: system-ui, sans-serif;
         }
         .spinner {
-            width: 36px;
-            height: 36px;
-            border: 3px solid rgba(255,255,255,0.1);
-            border-top-color: #3b82f6;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(212, 175, 55, 0.1);
+            border-top-color: #d4af37;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin: 0 auto 12px auto;
+            margin: 0 auto 16px auto;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Floating Toolbar Controls */
+        /* Album Toolbar */
         .toolbar {
             position: absolute;
-            bottom: 20px;
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(17, 24, 39, 0.85);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(20, 17, 15, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 30px;
-            padding: 6px 16px;
+            padding: 6px 20px;
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
             z-index: 30;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            font-family: system-ui, sans-serif;
         }
         .btn-ctrl {
             background: none;
             border: none;
-            color: #9ca3af;
-            font-size: 1rem;
+            color: #c5b5a7;
+            font-size: 1.05rem;
             cursor: pointer;
             padding: 6px;
             border-radius: 50%;
             transition: all 0.2s;
         }
         .btn-ctrl:hover {
-            color: #ffffff;
-            background-color: rgba(255,255,255,0.1);
+            color: #d4af37;
+            background-color: rgba(212, 175, 55, 0.1);
         }
         .page-indicator {
-            color: #d1d5db;
+            color: #e5dace;
             font-size: 0.85rem;
             font-weight: 500;
-            min-width: 60px;
+            min-width: 80px;
             text-align: center;
         }
     </style>
@@ -142,39 +175,41 @@
 
     <header>
         <div class="brand">
-            <span class="badge">ICMR 2026</span>
+            <span class="album-badge">ICMR 2026</span>
             <div class="title-text">
                 <h1>23rd International Conference on Manufacturing Research</h1>
                 <p>2–4 September 2026 &bull; Astana, Kazakhstan</p>
             </div>
         </div>
-        <a href="icmr2026-proceedings.pdf" download style="color:#60a5fa; text-decoration:none; font-size:0.85rem; font-weight:600;">
-            <i class="fa-solid fa-download"></i> PDF
+        <a href="icmr2026-proceedings.pdf" download style="color:#d4af37; text-decoration:none; font-size:0.85rem; font-family:system-ui, sans-serif; font-weight:600;">
+            <i class="fa-solid fa-file-pdf"></i> Download Album PDF
         </a>
     </header>
 
     <div id="viewport">
         <div id="loader">
             <div class="spinner"></div>
-            Loading ICMR 2026 Magazine...
+            Opening ICMR 2026 Conference Album...
         </div>
         
-        <div id="magazine" class="magazine-wrapper"></div>
+        <div class="book-stage">
+            <div id="magazine" class="magazine-wrapper"></div>
+        </div>
 
         <div class="toolbar">
             <button class="btn-ctrl" id="btn-prev" title="Previous Page"><i class="fa-solid fa-chevron-left"></i></button>
-            <span class="page-indicator" id="page-num">1 / 1</span>
+            <span class="page-indicator" id="page-num">Page 1</span>
             <button class="btn-ctrl" id="btn-next" title="Next Page"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </div>
 
     <script>
-        // Make sure this filename matches your PDF in the GitHub repository
+        // Ensure this PDF file name matches the actual file uploaded in your repository
         const PDF_FILE = 'icmr2026-proceedings.pdf'; 
 
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
-        async function renderFlipbook() {
+        async function renderBook() {
             const loader = document.getElementById('loader');
             const container = document.getElementById('magazine');
             
@@ -202,26 +237,27 @@
 
                 loader.style.display = 'none';
 
-                // Initialize 3D Magazine Page-Flip Engine
+                // Initialize 3D Hardcover Album Engine
                 const pageFlip = new St.PageFlip(container, {
-                    width: 500,
-                    height: 680,
+                    width: 480,
+                    height: 640,
                     size: "stretch",
-                    minWidth: 300,
-                    maxWidth: 900,
-                    minHeight: 400,
-                    maxHeight: 1200,
-                    maxShadowOpacity: 0.6,
+                    minWidth: 320,
+                    maxWidth: 800,
+                    minHeight: 420,
+                    maxHeight: 1100,
+                    maxShadowOpacity: 0.7,
                     showCover: true,
-                    mobileScrollSupport: false
+                    mobileScrollSupport: false,
+                    drawShadow: true,
+                    flippingTime: 900
                 });
 
                 pageFlip.loadFromHTML(document.querySelectorAll('.page'));
 
-                // Controls Binding
                 const numDisplay = document.getElementById('page-num');
                 const updateNum = () => {
-                    numDisplay.innerText = `${pageFlip.getCurrentPageIndex() + 1} / ${totalPages}`;
+                    numDisplay.innerText = `Page ${pageFlip.getCurrentPageIndex() + 1} of ${totalPages}`;
                 };
 
                 document.getElementById('btn-prev').onclick = () => { pageFlip.flipPrev(); updateNum(); };
@@ -231,11 +267,11 @@
                 updateNum();
 
             } catch (err) {
-                loader.innerHTML = '<p style="color:#f87171;">Unable to load PDF. Check that "icmr2026-proceedings.pdf" is in your repository root.</p>';
+                loader.innerHTML = '<p style="color:#f87171;">Unable to load publication PDF. Verify "icmr2026-proceedings.pdf" exists in your GitHub repository.</p>';
             }
         }
 
-        document.addEventListener('DOMContentLoaded', renderFlipbook);
+        document.addEventListener('DOMContentLoaded', renderBook);
     </script>
 
 </body>
