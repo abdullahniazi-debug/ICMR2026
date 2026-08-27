@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICMR 2026 | Publication Proceedings</title>
+    <title>ICMR 2026 | Slide Presentation</title>
     
     <!-- Dependencies: PDF Engine & Icons -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
@@ -14,133 +14,113 @@
         body, html {
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, #1e1b18 0%, #0d0b0a 100%);
+            background-color: #0f172a;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
-        /* Conference Header Bar */
+        /* Top Bar */
         header {
-            height: 56px;
-            background-color: #14110f;
-            border-bottom: 1px solid #2d2621;
+            height: 50px;
+            background-color: #1e293b;
+            border-bottom: 1px solid #334155;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 24px;
-            z-index: 20;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            padding: 0 20px;
+            z-index: 10;
         }
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .album-badge {
-            background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
-            color: #14110f;
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 5px 10px;
-            border-radius: 4px;
-            letter-spacing: 0.5px;
-        }
-        .title-text h1 {
-            color: #f3ece7;
-            font-size: 0.95rem;
+        .brand-title {
+            color: #f8fafc;
+            font-size: 0.9rem;
             font-weight: 600;
         }
-        .title-text p {
-            color: #a39589;
-            font-size: 0.75rem;
+        .download-link {
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
-        /* Main Viewport & Single Page Canvas */
-        #viewport {
+        /* Slide Stage Container */
+        #slide-container {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            padding: 20px;
-            overflow: hidden;
-        }
-
-        .page-card {
-            position: relative;
-            background-color: #ffffff;
-            border-radius: 6px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(212, 175, 55, 0.2);
-            max-height: calc(100vh - 140px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 15px;
             cursor: pointer;
             overflow: hidden;
         }
 
+        /* Slide Canvas - Perfect Aspect Ratio */
         #pdf-canvas {
             display: block;
-            max-height: calc(100vh - 140px);
-            max-width: 100%;
-            height: auto;
-            width: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            background-color: #ffffff;
         }
 
         /* Loading Spinner */
         #loader {
             position: absolute;
-            color: #d4af37;
+            color: #94a3b8;
+            font-size: 0.9rem;
             text-align: center;
-            font-size: 0.95rem;
         }
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(212, 175, 55, 0.1);
-            border-top-color: #d4af37;
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: #38bdf8;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin: 0 auto 16px auto;
+            margin: 0 auto 10px auto;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Floating Controls Toolbar */
-        .toolbar {
+        /* PPT Control Toolbar */
+        .controls {
             position: absolute;
-            bottom: 24px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(20, 17, 15, 0.9);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 30px;
-            padding: 6px 20px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid #334155;
+            border-radius: 40px;
+            padding: 8px 24px;
             display: flex;
             align-items: center;
             gap: 20px;
-            z-index: 30;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            z-index: 20;
         }
-        .btn-ctrl {
-            background: none;
-            border: none;
-            color: #c5b5a7;
-            font-size: 1.1rem;
+        .btn {
+            background: #1e293b;
+            border: 1px solid #475569;
+            color: #f8fafc;
+            padding: 8px 16px;
+            border-radius: 20px;
             cursor: pointer;
-            padding: 6px 12px;
-            border-radius: 50%;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             transition: all 0.2s;
         }
-        .btn-ctrl:hover {
-            color: #d4af37;
-            background-color: rgba(212, 175, 55, 0.1);
+        .btn:hover {
+            background-color: #38bdf8;
+            color: #0f172a;
+            border-color: #38bdf8;
         }
-        .page-indicator {
-            color: #e5dace;
-            font-size: 0.9rem;
-            font-weight: 500;
+        .slide-counter {
+            color: #cbd5e1;
+            font-size: 0.85rem;
+            font-weight: 600;
             min-width: 90px;
             text-align: center;
         }
@@ -149,124 +129,122 @@
 <body>
 
     <header>
-        <div class="brand">
-            <span class="album-badge">ICMR 2026</span>
-            <div class="title-text">
-                <h1>23rd International Conference on Manufacturing Research</h1>
-                <p>2–4 September 2026 &bull; Astana, Kazakhstan</p>
-            </div>
-        </div>
-        <a href="icmr2026-proceedings.pdf" download style="color:#d4af37; text-decoration:none; font-size:0.85rem; font-weight:600;">
-            <i class="fa-solid fa-file-pdf"></i> Download PDF
+        <div class="brand-title">ICMR 2026 Proceedings</div>
+        <a href="icmr2026-proceedings.pdf" download class="download-link">
+            <i class="fa-solid fa-download"></i> Download PDF
         </a>
     </header>
 
-    <div id="viewport">
+    <div id="slide-container" title="Click anywhere to advance slide">
         <div id="loader">
             <div class="spinner"></div>
-            Loading Document...
+            Loading Presentation...
         </div>
         
-        <div class="page-card" id="page-card" title="Click to turn page">
-            <canvas id="pdf-canvas"></canvas>
-        </div>
+        <canvas id="pdf-canvas"></canvas>
 
-        <div class="toolbar">
-            <button class="btn-ctrl" id="btn-prev" title="Previous Page"><i class="fa-solid fa-chevron-left"></i></button>
-            <span class="page-indicator" id="page-num">Page 1 of 1</span>
-            <button class="btn-ctrl" id="btn-next" title="Next Page"><i class="fa-solid fa-chevron-right"></i></button>
+        <div class="controls" onclick="event.stopPropagation()">
+            <button class="btn" id="btn-prev"><i class="fa-solid fa-arrow-left"></i> Prev</button>
+            <span class="slide-counter" id="slide-counter">Slide 1</span>
+            <button class="btn" id="btn-next">Next <i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
 
     <script>
-        // PDF File Name - must match your uploaded PDF in GitHub
-        const PDF_FILE = 'icmr2026-proceedings.pdf'; 
+        const PDF_FILE = 'icmr2026-proceedings.pdf'; // Must match your uploaded PDF name
 
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
         let pdfDoc = null;
-        let pageNum = 1;
-        let pageRendering = false;
-        let pageNumPending = null;
+        let currentSlide = 1;
+        let isRendering = false;
 
         const canvas = document.getElementById('pdf-canvas');
         const ctx = canvas.getContext('2d');
-        const pageNumDisplay = document.getElementById('page-num');
+        const container = document.getElementById('slide-container');
+        const counter = document.getElementById('slide-counter');
         const loader = document.getElementById('loader');
 
-        function renderPage(num) {
-            pageRendering = true;
-            pdfDoc.getPage(num).then(page => {
-                // High-DPI crisp scale rendering
-                const viewport = page.getViewport({ scale: 2.0 });
-                canvas.height = viewport.height;
+        function renderSlide(slideNum) {
+            isRendering = true;
+            pdfDoc.getPage(slideNum).then(page => {
+                const unscaledViewport = page.getViewport({ scale: 1.0 });
+
+                // Calculate exact scaling to fit slide in viewport without any distortion
+                const padding = 60;
+                const availableWidth = container.clientWidth - padding;
+                const availableHeight = container.clientHeight - padding - 40;
+
+                const scaleX = availableWidth / unscaledViewport.width;
+                const scaleY = availableHeight / unscaledViewport.height;
+                const scale = Math.min(scaleX, scaleY); // Maintain 100% natural aspect ratio
+
+                const dpr = window.devicePixelRatio || 1;
+                const viewport = page.getViewport({ scale: scale * dpr });
+
                 canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                canvas.style.width = (viewport.width / dpr) + 'px';
+                canvas.style.height = (viewport.height / dpr) + 'px';
 
                 const renderContext = {
                     canvasContext: ctx,
                     viewport: viewport
                 };
-                
-                const renderTask = page.render(renderContext);
-                renderTask.promise.then(() => {
-                    pageRendering = false;
-                    if (pageNumPending !== null) {
-                        renderPage(pageNumPending);
-                        pageNumPending = null;
-                    }
+
+                page.render(renderContext).promise.then(() => {
+                    isRendering = false;
+                    loader.style.display = 'none';
                 });
             });
 
-            pageNumDisplay.innerText = `Page ${num} of ${pdfDoc.numPages}`;
+            counter.innerText = `Slide ${slideNum} of ${pdfDoc.numPages}`;
         }
 
-        function queueRenderPage(num) {
-            if (pageRendering) {
-                pageNumPending = num;
-            } else {
-                renderPage(num);
-            }
+        function nextSlide() {
+            if (currentSlide >= pdfDoc.numPages || isRendering) return;
+            currentSlide++;
+            renderSlide(currentSlide);
         }
 
-        function onPrevPage() {
-            if (pageNum <= 1) return;
-            pageNum--;
-            queueRenderPage(pageNum);
+        function prevSlide() {
+            if (currentSlide <= 1 || isRendering) return;
+            currentSlide--;
+            renderSlide(currentSlide);
         }
 
-        function onNextPage() {
-            if (pageNum >= pdfDoc.numPages) return;
-            pageNum++;
-            queueRenderPage(pageNum);
-        }
+        // Click Controls
+        document.getElementById('btn-next').addEventListener('click', nextSlide);
+        document.getElementById('btn-prev').addEventListener('click', prevSlide);
 
-        document.getElementById('btn-prev').addEventListener('click', onPrevPage);
-        document.getElementById('btn-next').addEventListener('click', onNextPage);
-
-        // Click anywhere on the page to advance
-        document.getElementById('page-card').addEventListener('click', (e) => {
+        // Click slide area to advance (like PPT)
+        container.addEventListener('click', (e) => {
             const rect = canvas.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             if (clickX > rect.width / 2) {
-                onNextPage();
+                nextSlide();
             } else {
-                onPrevPage();
+                prevSlide();
             }
         });
 
-        // Keyboard arrow navigation
+        // Keyboard navigation (Arrow keys / Spacebar)
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') onNextPage();
-            if (e.key === 'ArrowLeft') onPrevPage();
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
+            if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
         });
 
-        // Load PDF Document
+        // Resize handler to re-scale dynamically
+        window.addEventListener('resize', () => {
+            if (pdfDoc) renderSlide(currentSlide);
+        });
+
+        // Load Document
         pdfjsLib.getDocument(PDF_FILE).promise.then(pdf => {
             pdfDoc = pdf;
-            loader.style.display = 'none';
-            renderPage(pageNum);
+            renderSlide(currentSlide);
         }).catch(err => {
-            loader.innerHTML = '<p style="color:#f87171;">File not found. Verify "icmr2026-proceedings.pdf" is uploaded to GitHub.</p>';
+            loader.innerHTML = '<p style="color:#ef4444;">PDF missing. Verify "icmr2026-proceedings.pdf" is in GitHub repository.</p>';
         });
     </script>
 
