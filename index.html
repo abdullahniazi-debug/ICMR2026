@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ICMR 2026 - 23rd International Conference on Manufacturing Research Proceedings">
+    <title>ICMR 2026 | Publication Viewer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: #0b0f17;
+            --bg-header: rgba(15, 23, 42, 0.85);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-hover: #2563eb;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        header {
+            height: 64px;
+            background-color: var(--bg-header);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 20;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 12px rgba(37, 99, 235, 0.35);
+        }
+
+        .title-group h1 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .title-group p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .action-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.825rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: 1px solid transparent;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            background-color: var(--bg-main);
+            position: relative;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            header { padding: 0 12px; }
+            .title-group p { display: none; }
+            .btn span { display: none; }
+            .btn { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container" id="app">
+        <header>
+            <div class="brand-section">
+                <span class="badge">ICMR 2026</span>
+                <div class="title-group">
+                    <h1>23rd International Conference on Manufacturing Research</h1>
+                    <p>2–4 September 2026 &bull; Astana, Kazakhstan</p>
+                </div>
+            </div>
+
+            <div class="action-group">
+                <button class="btn btn-secondary" onclick="toggleFullscreen()" title="Toggle Fullscreen">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                    <span>Fullscreen</span>
+                </button>
+                <a href="icmr2026-proceedings.pdf" download class="btn btn-primary" title="Download Document">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download PDF</span>
+                </a>
+            </div>
+        </header>
+
+        <main>
+            <!-- Native PDF view parameters: #toolbar=1&navpanes=0&view=FitH speed up initial layout paint -->
+            <iframe src="icmr2026-proceedings.pdf#toolbar=1&navpanes=0&view=FitH" title="ICMR 2026 Document Viewer"></iframe>
+        </main>
+    </div>
+
+    <script>
+        function toggleFullscreen() {
+            const elem = document.getElementById('app');
+            if (!document.fullscreenElement) {
+                elem.requestFullscreen().catch(err => alert(`Error: ${err.message}`));
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    </script>
+</body>
+</html>
